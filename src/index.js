@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 
 // css
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 // redux
