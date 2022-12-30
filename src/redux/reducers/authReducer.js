@@ -1,11 +1,12 @@
-import { SET_USER, RESET_USER, SET_FOLLOWERS,SET_FOLLOWING } from "../actions/authActions";
+import { SET_USER, RESET_USER, SET_FOLLOWERS,SET_FOLLOWING, SET_NOTIFICATIONS } from "../actions/authActions";
 
 const initialState = {
   isLoggedIn: false,
   user: null,
   userId: null,
   followers: null,
-  following: null
+  following: null,
+  notifications: null,
 };
 
 export default function authReducer(state = initialState, action) {
@@ -15,7 +16,8 @@ export default function authReducer(state = initialState, action) {
         isLoggedIn: true,
         user: action.payload.providerData[0],
         userId: action.payload.uid,
-        followers: []
+        followers: [],
+        notifications:[]
       };
       return state;
     case RESET_USER:
@@ -26,6 +28,9 @@ export default function authReducer(state = initialState, action) {
       return state;
     case SET_FOLLOWING:
         state = { ...state, following: action.payload };
+     return state;
+     case SET_NOTIFICATIONS:
+        state = { ...state, notifications: action.payload };
      return state;
     default:
       return state;

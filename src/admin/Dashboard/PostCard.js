@@ -43,7 +43,7 @@ const PostCard = ({ isLoggedIn, userId, post, id }) => {
           className="card_image"
         />
         <div className="category">
-          {post.post.category.split(",").map((ctg, i) => (
+          {post.post.category?.split(",").map((ctg, i) => (
             <p className="small bg-dark mb-0 mr-2 py-1 px-2 text-white" key={i}>
               {ctg.trim()}
             </p>
@@ -71,15 +71,18 @@ const PostCard = ({ isLoggedIn, userId, post, id }) => {
           onClick={(e) => {
             if (!isLoggedIn) {
               history.push("/login");
-              toast.warning("Please login to like a post!");
+             
             } else if (
               !(post.post.likes.includes(userId) || post.post.author === userId)
             ) {
               dispatch(doLike(userId, post.postId, post.post));
             }
+            else{
+              toast.warning("Post has got enough likes from you! ;)");
+            }
           }}
         >
-          <i class="fa fa-heart"></i>
+          <i className="fa fa-heart"></i>
           {post.post.likes?.length}
         </button>
       </div>

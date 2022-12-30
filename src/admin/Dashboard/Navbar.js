@@ -32,6 +32,11 @@ const Navbar = () => {
             Your Posts
           </NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink exact to="/admin/dashboard/notifications" className="nav-link">
+            Notifications
+          </NavLink>
+        </li>
       </ul>
       </div>
     </nav>

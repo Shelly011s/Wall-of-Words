@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import fire from "../../config/fire";
+import { sendNotification } from "./authActionCreator";
 
 const setPostsLoading = (message) => ({
   type: "SET_POSTS_LOADING",
@@ -76,6 +77,7 @@ export const newPost =
                   const docum = await doc.get();
                   const docData = docum.data();
                   docData.image = downloadURL;
+                  await sendNotification(author, doc.id);
                   dispatch(addPost({ data: docData, postId: doc.id }));
                 });
             });

@@ -14,6 +14,7 @@ import {
 } from "../../redux/actionCreators/postsActionCreator";
 import AddReply from "./AddReply";
 import "../index.css";
+
 const SeePost = () => {
   const { id } = useParams();
   const history = useHistory();
@@ -60,9 +61,6 @@ const SeePost = () => {
     if (isLoggedIn) {
       if (!comment) {
         return toast.warning("Please add comment!");
-      }
-      if (!name || !comment) {
-        return toast.warning("Please fill in all fields!");
       }
       const data = {
         name: user.displayName,
@@ -156,7 +154,7 @@ const SeePost = () => {
               </p>
               </div>
               <div className="blog py-5 pl-5 d-flex flex-column">
-                <div className="">
+                
                   {!isLoggedIn ? (
                     <form className="w-100" onSubmit={makeComment}>
                       <div className="input-group mb-2">
@@ -183,7 +181,7 @@ const SeePost = () => {
                       </div>
                     </form>
                   ) : (
-                    <form className="px-5" onSubmit={makeComment}>
+                    <form className="p-3 border rounded mb-2" onSubmit={makeComment}>
                       <div className="form-group">
                         <textarea
                           className="form-control"
@@ -202,7 +200,7 @@ const SeePost = () => {
                       </div>
                     </form>
                   )}
-                </div>
+                
                 <div>
                   {currentPost.post.comments.length > 0 ? (
                     currentPost.post.comments.map((comment, id) => (
@@ -255,9 +253,7 @@ const SeePost = () => {
                                             </div>
                                             <h5>{rply.name}</h5>
                                           </div>
-                                          <button className="btn dropdown">
-                                            <i className="ri-more-line"></i>
-                                          </button>
+                                          
                                         </div>
                                         <div className="content">
                                           <p>{rply.reply}</p>
@@ -286,7 +282,7 @@ const SeePost = () => {
                                 View {comment.replies.length} replies
                               </button>
                             ) : (
-                              <p className="card-text">No Replies</p>
+                              ''
                             )}
                           </div>
                           <div className="form-group px-1">

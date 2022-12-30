@@ -6,8 +6,9 @@ import PostCard from "./PostCard";
 
 const Posts = () => {
   
-  const { postsLoading, allPosts, userId } = useSelector(
+  const { isLoggedIn, postsLoading, allPosts, userId } = useSelector(
     (state) => ({
+      isLoggedIn: state.auth.isLoggedIn,
       postsLoading: state.posts.postsLoading,
       allPosts: state.posts.posts,
       userId: state.auth.userId,
@@ -24,8 +25,8 @@ const Posts = () => {
   }, [dispatch]);
 
   return (
-    <div className="main">
-      <div className="row d-flex align-items-center justify-content-center">
+    <div className="container-fluid">
+      <div className="row d-flex justify-content-center flex-wrap">
         {postsLoading ? (
           <h1 className="text-center">Loading Posts...</h1>
         ) : posts.length > 0 ? (
@@ -33,7 +34,7 @@ const Posts = () => {
           <div className="cards">
             <div className="cards_item">
             {posts.map((post, id) => (
-              <PostCard post={post} key={id} id={id} />
+              <PostCard isLoggedIn={isLoggedIn} userId={userId} post={post} key={id} id={id} />
             ))}
             </div>
             </div>
