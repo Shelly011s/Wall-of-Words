@@ -20,11 +20,11 @@ const Home = () => {
     shallowEqual
   );
   const [search, setSearch] = useState("");
-  const [allPosts, setAllPosts] = useState(() => { if(!postsLoading) return posts;});
+  const [allPosts, setAllPosts] = useState();
 
   const searchPosts = (e) => {
     e.preventDefault();
-    let results = allPosts.filter(
+    let results = posts.filter(
       (p) =>
         p.post.category?.toLowerCase().includes(search.toLowerCase()) ||
         p.post.postedBy?.toLowerCase().includes(search.toLowerCase()) ||
@@ -32,12 +32,11 @@ const Home = () => {
         p.post.description?.toLowerCase().includes(search.toLowerCase())
     );
 
-    dispatch(setPosts(results));
+    setAllPosts(results);
   };
-
-  const latestPosts = posts;
+  const latestPosts = allPosts;
   latestPosts
-    .sort((a, b) => {
+    ?.sort((a, b) => {
       const postA = new Date(a.post.createdAt);
       const postB = new Date(b.post.createdAt);
 
@@ -52,6 +51,12 @@ const Home = () => {
       dispatch(getPosts());
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!postsLoading) {
+      setAllPosts(posts);
+    }
+  }, [posts]);
 
   return (
     
@@ -81,7 +86,7 @@ const Home = () => {
             <div className="cards_item">
               {postsLoading
                 ? "Loading posts"
-                : latestPosts.map((post, id) => (
+                : latestPosts?.map((post, id) => (
                   <PostCard userId={userId} isLoggedIn={isLoggedIn} post={post} key={id} id={id}/>
                   ))}
             </div>
